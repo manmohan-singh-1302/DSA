@@ -1,5 +1,5 @@
 // same as the standarad problem but after pushing the elements of k size
-// push the remaining element of the min heap
+// push the remaining element of the min heap into an array
 // Time complexity of this algorithm will be n+klogk
 
 #include <bits/stdc++.h>

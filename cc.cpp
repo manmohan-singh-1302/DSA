@@ -1,18 +1,11 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-int main()
-{
-	char a;
-	char b;
-	cin >> a;
-	cin >> b;
-	int m = a - '0';
-	int n = b - '0';
-	int z = m * n;
+int longest(string s){
+	
+}
+int main(){
 	string s;
-	ostringstream iss;
-	iss << z;
-	// example
-	s = iss.str();
-	cout << s << endl;
+	cin>>s;
+	cout<<longest(s);
+	return 0;
 }
