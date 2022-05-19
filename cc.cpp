@@ -12,6 +12,7 @@ int main()
 	string s;
 	ostringstream iss;
 	iss << z;
+	// example
 	s = iss.str();
 	cout << s << endl;
 }
