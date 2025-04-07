@@ -22,7 +22,7 @@ int main()
         {
             v.push_back(s.top());
         }
-        else if (s.size() && s.top() <= a[i])
+        else if (s.size()>0 && s.top() <= a[i])
         {
             while (s.size() > 0 && s.top() <= a[i])
             {

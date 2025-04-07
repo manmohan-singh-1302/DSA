@@ -1,11 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
-int longest(string s){
-	
-}
+void bfs()
 int main(){
-	string s;
-	cin>>s;
-	cout<<longest(s);
+	int n,e;
+	cin>>n>>e;
+	vector<int> adj[n];
+	for(int i=0;i<e;i++){
+		int a,b;
+		cin>>a>>b;
+		adj[a].push_back(b);
+	}
 	return 0;
 }

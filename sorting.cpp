@@ -1,54 +1,104 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define ll long long int
-#define mm 100001
-#define mod 1000000007
-ll ele(ll a,ll b){
-	ll res = 1;
-	while(b!=0){
-		if(b%2==0){
-			a = ((a%mod)*(a%mod))%mod;
-			b = floor(b/2);
-		}
-		else{
-			res = ((res%mod)*(a%mod))%mod;
-			b = b-1;
-		}
+class node
+{
+public:
+	int id;
+	int amount;
+	node(int _id, int _amount)
+		: id(_id), amount(_amount)
+	{
 	}
-	return res;
-	
+};
+
+bool operator>(const node &p1, const node &p2)
+{
+	if (p1.amount > p2.amount)
+		return true;
+	else if (p1.amount < p2.amount)
+		return false;
+	return p1.id < p2.id;
 }
-ll palin(ll n){
-    ll pal = n;
-	ll ans = 0;
-	if(n<10){
-		ans = pal;
+struct trans
+{
+	int from;
+	int to;
+	int amount;
+};
+void sol(vector<pair<int, int>> &lent, vector<pair<int, int>> &borrowed)
+{
+	map<int, long long> mp;
+	for (auto v : lent)
+		mp[v.first] += v.second;
+	for (auto v : borrowed)
+		mp[v.first] -= v.second;
+	priority_queue<node, vector<node>, greater<node>> pq_giver;
+	priority_queue<node, vector<node>, greater<node>> pq_taker;
+	for (auto f : mp)
+	{
+		if (f.second > 0)
+			pq_taker.push(node(f.first, f.second));
+		if (f.second < 0)
+			pq_giver.push(node(f.first, f.second));
 	}
-	else {
-		n /=10;
-		while(n!=0){
-			pal = pal*10+n%10;
-			n/=10;
+	vector<trans> ans;
+	while (pq_giver.size() || pq_taker.size())
+	{
+		node from = pq_giver.top();
+		node to = pq_taker.top();
+		pq_giver.pop();
+		pq_taker.pop();
+		if (from.amount > to.amount)
+		{
+			ans.push_back({from.id, to.id, to.amount});
+			from.amount -= to.amount;
+			pq_giver.push(from);
 		}
-		ans = pal;
+		else
+		{
+			if (from.amount < to.amount)
+			{
+				ans.push_back({from.id, to.id, from.amount});
+				to.amount -= from.amount;
+				pq_taker.push(to);
+			}
+			else
+			{
+				ans.push_back({from.id, to.id, to.amount});
+			}
+		}
 	}
-	return ans;
+	cout << ans.size() << endl;
+	for (auto a : ans)
+	{
+		cout << a.from << ' ' << a.to << ' ' << a.amount << endl;
+	}
 }
-int main(){
-	ll q;
-	cin>>q;
-	ll arr[mm] = {0};
-	ll pre[mm] = {0};
-	while(q--){
-		ll l,r;
-		cin>>l>>r;
-		for(ll i=1;i<=mm;i++){
-			arr[i] = palin(i);
-			pre[i] = pre[i-1]+arr[i];
+
+int main()
+{
+	int n, m;
+	cin >> n >> m;
+	vector<pair<int, int>> lent(100);
+	vector<pair<int, int>> borrowed(100);
+	for (int i = 0; i < m; i++)
+	{
+		string s;
+		cin >> s;
+		int l, b;
+		int x, y;
+		cin >> l >> b;
+		for (int i = 0; i < l; i++)
+		{
+			cin >> x >> y;
+			lent.push_back({x, y});
 		}
-		ll b = pre[r] - pre[l];
-		ll z = ele(arr[l],b);
-		cout<<z<<endl;
+		for (int i = 0; i < b; i++)
+		{
+			cin >> x >> y;
+			borrowed.push_back({x, y});
+		}
 	}
+	sol(lent, borrowed);
 	return 0;
 }

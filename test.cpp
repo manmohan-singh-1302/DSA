@@ -1,40 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
+struct bill
+{
+    string trans_id;
+    vector<pair<int, int>> paid_by;
+    vector<pair<int, int>> split_as;
+};
 int main()
 {
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    int m;
-    cin >> m;
-    map<int, int> u;
-    for (int i = 0; i < n; i++)
-        u[arr[i]]++;
-
-    cout << "size " << u.size() << endl;
-    while (m >= 0)
+    int n, m;
+    cin >> n >> m;
+    bill arr[m];
+    int borrowed[n];
+    int paid[n];
+    for (int i = 0; i < m; i++)
     {
-        bool flag = false;
-        for (auto i : u)
+        cin >> arr[i].trans_id;
+        int a, b;
+        cin >> a >> b;
+        arr[i].paid_by.resize(a);
+        arr[i].split_as.resize(b);
+        for (int j = 0; j < a; j++)
         {
-            if (m <= i.second)
-            {
-                flag = true;
-                break;
-            }
-            // if (m >= i.second)
-            // {
-            m -= i.second;
-            cout << m << endl;
-            int ans = i.first;
-            u.erase(ans);
-            // }
+            cin >> arr[i].paid_by[j].first;
+            cin >> arr[i].paid_by[j].second;
         }
-        if (flag)
-            break;
+        for (int j = 0; j < b; j++)
+        {
+            cin >> arr[i].split_as[j].first;
+            cin >> arr[i].split_as[j].second;
+        }
+        int bollowed[n];
+        int paid[n];
+        for(auto i: arr){
+            
+        }
+        return 0;
     }
-    cout << u.size() << endl;
-    return 0;
 }
